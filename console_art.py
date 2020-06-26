@@ -4,7 +4,7 @@ from PIL import Image
 def main(scr):
   console_height, console_width = scr.getmaxyx()
 
-  img = Image.open('F:\\github\\Console_Art\\binary.png')
+  img = Image.open('F:\\github\\Console_Art\\image.png')
   img_height, img_width = img.height, img.width
 
   img = img.resize((console_height * img_width // img_height, console_height))
@@ -13,11 +13,13 @@ def main(scr):
   curses.init_pair(2, curses.COLOR_BLACK, curses.COLOR_WHITE)
 
   pixels = img.load()
+
   for y in range(img.height):
     for x in range(img.width):
       scr.attron(curses.color_pair(pixels[x, y][0] // 255 + 1))
       scr.addstr(y, (console_width - img.width) // 2 + x, ' ')
       scr.attroff(curses.color_pair(pixels[x, y][0] // 255 + 1))
+
   scr.refresh()
   scr.getch()
 
